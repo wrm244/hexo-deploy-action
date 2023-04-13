@@ -9,6 +9,7 @@ echo "$INPUT_DEPLOY_KEY" > /root/.ssh/id_rsa
 chmod 600 /root/.ssh/id_rsa
 ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
+apt-get install systemd -y
 timedatectl set-timezone Asia/Shanghai
 
 # setup deploy git account
