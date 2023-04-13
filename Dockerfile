@@ -1,10 +1,15 @@
-# Container image that runs your code
-FROM node:16
+FROM node:18
 
-# Copies your code file from your action repository to the filesystem path `/` of the container
+# LABEL version="1.0.3"
+# LABEL repository="https://github.com/sma11black/hexo-action"
+# LABEL homepage="https://sma11black.github.io"
+# LABEL maintainer="sma11black <smallblack@outlook.com>"
+
 COPY entrypoint.sh /entrypoint.sh
+COPY sync_deploy_history.js /sync_deploy_history.js
 
-RUN chmod +x /entrypoint.sh
+RUN apt-get update > /dev/null && \
+    apt-get install -y git openssh-client > /dev/null ; \
+    chmod +x /entrypoint.sh
 
-# Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]

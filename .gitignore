@@ -1,35 +1,18 @@
-.DS_Store
-Thumbs.db
-db.json
-*.log
-node_modules/
-public/
-.deploy*/
-yarn.lock
-package-lock.json
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
+# Other files and folders
 .settings/
-*.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
 
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-testem.log
-/typings
-
-# e2e
-/e2e/src/*.js
-/e2e/src/*.map
-/cypress/screenshots
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
