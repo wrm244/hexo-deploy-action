@@ -19,4 +19,4 @@ npm install hexo-deployer-git --save
 NODE_PATH=$NODE_PATH:$(pwd)/node_modules node /sync_deploy_history.js
 hexo g -d
 
-echo ::set-output name=notify::"Deploy complate."
+echo ">> Deploy complate."
