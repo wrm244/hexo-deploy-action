@@ -64,9 +64,32 @@ CURRENT_DIR=$(pwd)
 git config --global user.name "${PERSION_NAME}"
 git config --global user.email "${PERSION_MAIL}"
 
-
+echo "user:${PERSION_NAME},mail:${PERSION_MAIL}"
 # git remote add origin "${REPOSITORY_PATH}"
 # git checkout --orphan "${TARGET_BRANCH}"
+
+echo "use PRIVATE_KEY"
+if [ -n "$SSH_PRIVATE_KEY" ]
+then
+  mkdir -p /root/.ssh
+  echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa
+  chmod 600 /root/.ssh/id_rsa
+fi
+
+if [ -n "$SSH_KNOWN_HOSTS" ]
+then
+  mkdir -p /root/.ssh
+  echo "StrictHostKeyChecking yes" >> /etc/ssh/ssh_config
+  echo "$SSH_KNOWN_HOSTS" > /root/.ssh/known_hosts
+  chmod 600 /root/.ssh/known_hosts
+else
+  echo "WARNING: StrictHostKeyChecking disabled"
+  echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+fi
+
+mkdir -p ~/.ssh
+cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
+
 
 echo ">>> deploy ..."
 npx hexo d
