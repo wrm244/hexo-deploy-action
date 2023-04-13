@@ -90,6 +90,7 @@ fi
 mkdir -p ~/.ssh
 cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
 
+ssh -T git@github.com
 
 echo ">>> deploy ..."
 npx hexo d
