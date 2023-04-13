@@ -69,10 +69,10 @@ echo "user:${PERSION_NAME},mail:${PERSION_MAIL}"
 # git checkout --orphan "${TARGET_BRANCH}"
 
 echo "use PRIVATE_KEY"
-if [ -n "$SSH_PRIVATE_KEY" ]
+if [ -n "${SSH_PRIVATE_KEY}" ]
 then
   mkdir -p /root/.ssh
-  echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa
+  echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
   chmod 600 /root/.ssh/id_rsa
 fi
 
@@ -93,7 +93,7 @@ cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
 # git config --global --add safe.directory '*'
 # git remote -v
 # git remote set-url origin git@github.com:"${TARGET_REPOSITORY}".git
-
+echo "${SSH_PRIVATE_KEY}"
 echo ">>> deploy ..."
 npx hexo d
 # if [ -n "${CNAME}" ]; then
