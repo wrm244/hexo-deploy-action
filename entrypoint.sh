@@ -18,7 +18,11 @@ npm ci
 npm install hexo-deployer-git --save
 
 NODE_PATH=$NODE_PATH:$(pwd)/node_modules node /sync_deploy_history.js
-hexo g 
-hexo d
+hexo g
+
+cd ./public
+git add .
+git commit -m "deploy"
+git push
 
 echo "Deploy complate."
