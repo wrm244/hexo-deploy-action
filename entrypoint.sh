@@ -61,8 +61,8 @@ echo ">>> Config git ..."
 
 CURRENT_DIR=$(pwd)
 
-# git config --global user.name "${PERSION_NAME}"
-# git config --global user.email "${PERSION_MAIL}"
+git config --global user.name "${PERSION_NAME}"
+git config --global user.email "${PERSION_MAIL}"
 
 echo "user:${PERSION_NAME},mail:${PERSION_MAIL}"
 # git remote add origin "${REPOSITORY_PATH}"
