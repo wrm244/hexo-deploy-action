@@ -94,8 +94,8 @@ cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
 # git remote -v
 # git remote set-url origin git@github.com:"${TARGET_REPOSITORY}".git
 
-# echo ">>> deploy ..."
-# npx hexo d
+echo ">>> deploy ..."
+npx hexo d
 # if [ -n "${CNAME}" ]; then
 #     echo ${CNAME} > CNAME
 # fi
