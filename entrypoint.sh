@@ -16,7 +16,7 @@ git config --global user.email "$INPUT_USER_EMAIL"
 echo "install hexo env"
 # install hexo env
 npm install hexo-cli -g
-npm ci
+npm install
 npm install hexo-deployer-git --save
 npm install hexo-auto-category --save
 
