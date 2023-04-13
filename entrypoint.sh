@@ -90,10 +90,12 @@ fi
 mkdir -p ~/.ssh
 cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
 
-ssh -T git@github.com
-
-echo ">>> deploy ..."
-npx hexo d
+ssh -T git@github.com 
+git remote -v
+git remote set-url origin git@github.com:"${TARGET_REPOSITORY}".git
+ssh -T git@github.com 
+# echo ">>> deploy ..."
+# npx hexo d
 # if [ -n "${CNAME}" ]; then
 #     echo ${CNAME} > CNAME
 # fi
