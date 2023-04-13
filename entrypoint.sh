@@ -42,14 +42,14 @@ apt-get install -y git && \
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
 
-echo ">>> Install NPM dependencies ..."
-npm install
+# echo ">>> Install NPM dependencies ..."
+# npm install
 
-echo ">>> Clean cache files ..."
-npx hexo clean
+# echo ">>> Clean cache files ..."
+# npx hexo clean
 
-echo ">>> Generate file ..."
-npx hexo generate
+# echo ">>> Generate file ..."
+# npx hexo generate
 
 
 
@@ -61,8 +61,8 @@ echo ">>> Config git ..."
 
 CURRENT_DIR=$(pwd)
 
-git config --global user.name "${PERSION_NAME}"
-git config --global user.email "${PERSION_MAIL}"
+# git config --global user.name "${PERSION_NAME}"
+# git config --global user.email "${PERSION_MAIL}"
 
 echo "user:${PERSION_NAME},mail:${PERSION_MAIL}"
 # git remote add origin "${REPOSITORY_PATH}"
@@ -90,12 +90,12 @@ fi
 mkdir -p ~/.ssh
 cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
 
-git config --global --add safe.directory '*'
+# git config --global --add safe.directory '*'
 # git remote -v
 # git remote set-url origin git@github.com:"${TARGET_REPOSITORY}".git
-# ssh -T git@github.com 
-echo ">>> deploy ..."
-npx hexo d
+ssh -T git@github.com 
+# echo ">>> deploy ..."
+# npx hexo d
 # if [ -n "${CNAME}" ]; then
 #     echo ${CNAME} > CNAME
 # fi
