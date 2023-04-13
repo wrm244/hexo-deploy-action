@@ -1,9 +1,4 @@
-FROM node:18
-
-# LABEL version="1.0.3"
-# LABEL repository="https://github.com/sma11black/hexo-action"
-# LABEL homepage="https://sma11black.github.io"
-# LABEL maintainer="sma11black <smallblack@outlook.com>"
+FROM node:18.15.0
 
 COPY entrypoint.sh /entrypoint.sh
 COPY sync_deploy_history.js /sync_deploy_history.js
