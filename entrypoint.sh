@@ -42,14 +42,14 @@ apt-get install -y git && \
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
 
-echo ">>> Install NPM dependencies ..."
-npm install
+# echo ">>> Install NPM dependencies ..."
+# npm install
 
-echo ">>> Clean cache files ..."
-npx hexo clean
+# echo ">>> Clean cache files ..."
+# npx hexo clean
 
-echo ">>> Generate file ..."
-npx hexo generate
+# echo ">>> Generate file ..."
+# npx hexo generate
 
 
 
