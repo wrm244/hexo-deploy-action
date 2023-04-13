@@ -42,14 +42,14 @@ apt-get install -y git && \
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
 
-# echo ">>> Install NPM dependencies ..."
-# npm install
+echo ">>> Install NPM dependencies ..."
+npm install
 
-# echo ">>> Clean cache files ..."
-# npx hexo clean
+echo ">>> Clean cache files ..."
+npx hexo clean
 
-# echo ">>> Generate file ..."
-# npx hexo generate
+echo ">>> Generate file ..."
+npx hexo generate
 
 
 
@@ -76,16 +76,16 @@ then
   chmod 600 /root/.ssh/id_rsa
 fi
 
-if [ -n "$SSH_KNOWN_HOSTS" ]
-then
-  mkdir -p /root/.ssh
-  echo "StrictHostKeyChecking yes" >> /etc/ssh/ssh_config
-  echo "$SSH_KNOWN_HOSTS" > /root/.ssh/known_hosts
-  chmod 600 /root/.ssh/known_hosts
-else
-  echo "WARNING: StrictHostKeyChecking disabled"
-  echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
-fi
+# if [ -n "$SSH_KNOWN_HOSTS" ]
+# then
+#   mkdir -p /root/.ssh
+#   echo "StrictHostKeyChecking yes" >> /etc/ssh/ssh_config
+#   echo "$SSH_KNOWN_HOSTS" > /root/.ssh/known_hosts
+#   chmod 600 /root/.ssh/known_hosts
+# else
+#   echo "WARNING: StrictHostKeyChecking disabled"
+#   echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+# fi
 
 mkdir -p ~/.ssh
 cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
@@ -93,7 +93,7 @@ cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
 # git config --global --add safe.directory '*'
 # git remote -v
 # git remote set-url origin git@github.com:"${TARGET_REPOSITORY}".git
-ssh  -o StrictHostKeyChecking=no -T git@github.com 
+
 # echo ">>> deploy ..."
 # npx hexo d
 # if [ -n "${CNAME}" ]; then
