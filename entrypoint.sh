@@ -14,9 +14,11 @@ git config --global user.email "$INPUT_USER_EMAIL"
 
 # install hexo env
 npm install hexo-cli -g
+npm ci
 npm install hexo-deployer-git --save
 
 NODE_PATH=$NODE_PATH:$(pwd)/node_modules node /sync_deploy_history.js
-hexo g -d
+hexo g 
+hexo d
 
-echo ">> Deploy complate."
+echo "Deploy complate."
