@@ -17,8 +17,7 @@ echo ">>>install hexo env....."
 # install hexo env
 npm install hexo-cli -g
 
-echo ">>>install node dependency....."
-npm ci
+echo ">>>install hexo-deployer-git....."
 npm install hexo-deployer-git --save
 
 echo ">>>clone history git repositories......"
@@ -35,6 +34,6 @@ echo ">>> Generate file again..."
 npx hexo g
 
 echo ">>>deploying......"
-npx hexo d
+npx hexo d -g
 
 echo ">>> Deployment successful!"
