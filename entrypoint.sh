@@ -31,6 +31,9 @@ npx hexo clean
 echo ">>> Generate file ..."
 npx hexo g
 
+echo ">>> Generate file again..."
+npx hexo g
+
 echo ">>>deploying......"
 npx hexo d
 
