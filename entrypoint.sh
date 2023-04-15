@@ -24,11 +24,11 @@ echo ">>>clone history git repositories......"
 echo ">>>Please check whether the deployment configuration is set up in _config.yml......"
 NODE_PATH=$NODE_PATH:$(pwd)/node_modules node /sync_deploy_history.js
 
-echo ">>> Clean cache files ..."
-npx hexo clean
-
 echo ">>> Generate file ..."
 npx hexo g
+
+echo ">>> Clean cache files ..."
+npx hexo clean
 
 echo ">>> Generate file again..."
 npx hexo g
