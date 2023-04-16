@@ -40,7 +40,8 @@ else
     SLIDES_FLAG="no"
 fi
 
-if ["${INPUT_SLIDES}" == "yes"];then
+if [SLIDES_FLAG == "yes"];then
+    echo ">>> deploy slides...."
     apt-get install pandoc -y
     # Directs the action to the the Github workspace.
     cd "${GITHUB_WORKSPACE}"
