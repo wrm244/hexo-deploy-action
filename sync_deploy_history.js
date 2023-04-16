@@ -14,7 +14,7 @@ async function sync_deploy_history() {
   const hexo = new Hexo(process.cwd(), { silent: true });
   await hexo.init();
 
-  const deployDir = pathFn.join(hexo.base_dir, '.deploy_git');
+  const deployDir = pathFn.join(hexo.base_dir, 'public');
 
   // For git cmd
   function git(...args) {

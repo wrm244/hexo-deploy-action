@@ -35,12 +35,14 @@ npx hexo g
 
 echo ">>> deploy slides...."
 apt-get install pandoc -y
+
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
-pandoc ./source/_posts/slides/index.md -o ./.deploy_git/slides.html -t revealjs -s
+pandoc ./source/_posts/slides/index.md -o ./public/slides.html -t revealjs -s
 
 
 echo ">>>deploying......"
-npx hexo d -g
+cd ./public
+git push
 
 echo ">>> Deployment successful!"
