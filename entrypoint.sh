@@ -45,14 +45,14 @@ dpkg -i pandoc-3.1.2-1-amd64.deb
 SLIDES_DIR="./source/_posts/slides"
 PUBLIC_DIR="./public/slides"
 INDEX_FILE="./source/slide/index.md"
-ARG_FILE="$SLIDES_DIR/argument.md"
+ARG_FILE="$SLIDES_DIR/argument.txt"
 
 # 定义一个函数，用来转换 md 文件为 html 文件，并传递参数
 convert_md_to_html() {
     # 获取文件名（不含扩展名）
     local name=$(basename "$1" .md)
     # 从 argument.txt 文件中读取对应的参数
-    local args=$(grep "$name" "$ARG_FILE" | grep -v "^#" | cut -d' ' -f2-)
+    local args=$(grep "$name" "$ARG_FILE" | grep -v "^%" | cut -d' ' -f2-)
     # 调用 pandoc 命令并传递参数
     pandoc "$1" -o "$PUBLIC_DIR/$name.html" -t revealjs -s $args
 }
