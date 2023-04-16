@@ -63,10 +63,12 @@ write_index_file() {
     local name=$(basename "$1" .html)
     # 获取文件的创建时间（格式为 YYYY-MM-DD HH:MM）
     local time=$(date -d "$(stat -c %w "$1")" "+%Y-%m-%d %H:%M")
+    # 从 argument.txt 文件中读取对应的简介
+    local desc=$(grep -A 1 "$name" "$ARG_FILE" | grep "^#" | cut -c 3- || echo "暂无备注")
     # 检查 index.md 文件中是否已经有了相同的文件名
     if ! grep -q "$name" "$INDEX_FILE"; then
         # 如果没有，就追加一行到 index.md 文件中
-        echo "| [$name](../slides/$name.html) | $time |" >> "$INDEX_FILE"
+        echo "| [$name](../slides/$name.html) | $desc | $time |" >> "$INDEX_FILE"
     fi
 }
 
@@ -99,7 +101,7 @@ for f in $files; do
     fi
 done
 
-echo "Done."
+echo "pandoc to slides Done."
 
 echo ">>> Generate file again..."
 npx hexo g
