@@ -40,16 +40,36 @@ wget https://github.com/jgm/pandoc/releases/download/3.1.2/pandoc-3.1.2-1-amd64.
 dpkg -i pandoc-3.1.2-1-amd64.deb
 
 # use pandoc to slides
-echo ">>>pandoc -o pandoc ./public/slides/** -o "./public/slides/**" -t revealjs -s ${PANDOC_SLIDES}"
+
 mkdir -p ./public/slides
-if [-n "${PANDOC_SLIDES}"];them
-    for f in ./source/_posts/slides/*.md; do
-        pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s ${PANDOC_SLIDES}
-    done
-else
-    for f in ./source/_posts/slides/*.md; do
-        pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s
-    done
+for f in ./source/_posts/slides/*.md; do
+    # 从 argument.txt 文件中读取对应的参数
+    args=$(grep "$(basename "$f")" ./source/_posts/slides/argument.txt | cut -d' ' -f2-)
+    # 调用 pandoc 命令并传递参数
+    pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s $args
+done
+
+# 如果 index.md 文件不存在，就创建一个空的
+if [ ! -f ./source/slide/index.md ]; then
+    touch ./source/slide/index.md
+fi
+
+# 遍历 ./public/slides 文件夹中的文件
+for f in ./public/slides/*.html; do
+    # 获取文件名（不含扩展名）
+    name=$(basename "$f" .html)
+    # 获取文件的创建时间（格式为 YYYY-MM-DD HH:MM:SS）
+    time=$(stat -c %w "$f")
+    # 检查 index.md 文件中是否已经有了相同的文件名
+    if ! grep -q "${name}" ./source/slide/index.md; then
+        # 如果没有，就追加一行到 index.md 文件中
+        echo "| [${name}](https://wrm244.github.io/slides/${name}.html) | ${time} |" >> ./source/slide/index.md
+    fi
+done
+
+echo ">>> Generate file again..."
+npx hexo g
+
 if [ $? -eq 0 ]; then
   echo "deploy to slide success"
 else
