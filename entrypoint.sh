@@ -34,11 +34,13 @@ echo ">>> Generate file again..."
 npx hexo g
 
 echo ">>> deploy slides...."
-apt-get install pandoc -y
+apt-get install wget
+wget https://github.com/jgm/pandoc/releases/download/3.1.2/pandoc-3.1.2-1-amd64.deb
+dpkg -i pandoc-3.1.2-1-amd64.deb
 
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
-pandoc ./source/_posts/slides/index.md -o ./public/slides.html -t revealjs -s && echo "deploy slides sucessed"
+pandoc ./source/_posts/slides/index.md -o ./public/slides.html -t revealjs -s && echo ">>>deploy slides sucessed"
 
 
 echo ">>>deploying......"
