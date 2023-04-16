@@ -44,7 +44,7 @@ dpkg -i pandoc-3.1.2-1-amd64.deb
 mkdir -p ./public/slides
 for f in ./source/_posts/slides/*.md; do
     # 从 argument.txt 文件中读取对应的参数
-    args=$(grep "$(basename "$f")" ./source/_posts/slides/argument.txt | cut -d' ' -f2-)
+    args=$(grep "$(basename "$f")" ./source/_posts/slides/argument.txt | grep -v "^#" | cut -d' ' -f2-)
     # 调用 pandoc 命令并传递参数
     pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s $args
 done
