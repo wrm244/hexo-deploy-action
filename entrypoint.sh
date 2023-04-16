@@ -33,15 +33,22 @@ npx hexo clean
 echo ">>> Generate file again..."
 npx hexo g
 
+#
 echo ">>> deploy slides...."
 apt-get install wget
 wget https://github.com/jgm/pandoc/releases/download/3.1.2/pandoc-3.1.2-1-amd64.deb
 dpkg -i pandoc-3.1.2-1-amd64.deb
 
-# Directs the action to the the Github workspace.
-cd "${GITHUB_WORKSPACE}"
-pandoc ./source/_posts/slides/index.md -o ./public/slides.html -t revealjs -s && echo ">>>deploy slides sucessed"
-
+# use pandoc to slides
+mkdir -p ./public/slides
+for f in ./source/_posts/slides/*.md; do
+  pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s
+done
+if [ $? -eq 0 ]; then
+  echo "deploy to slide success"
+else
+  echo "deploy to slide failure"
+fi
 
 echo ">>>deploying......"
 npx hexo d
