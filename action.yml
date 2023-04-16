@@ -28,7 +28,7 @@ runs:
     - ${{ inputs.user_name }}
     - ${{ inputs.user_email }}
     - ${{ inputs.deploy_key }}
-    - ${{ inputs.slides }}
+    - ${{ inputs.pandoc_slides }}
 branding:
   icon: 'package'  
   color: 'blue'

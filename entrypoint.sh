@@ -40,10 +40,16 @@ wget https://github.com/jgm/pandoc/releases/download/3.1.2/pandoc-3.1.2-1-amd64.
 dpkg -i pandoc-3.1.2-1-amd64.deb
 
 # use pandoc to slides
+echo ">>>pandoc -o pandoc ./public/slides/** -o "./public/slides/**" -t revealjs -s ${PANDOC_SLIDES}"
 mkdir -p ./public/slides
-for f in ./source/_posts/slides/*.md; do
-  pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s
-done
+if [-n "${PANDOC_SLIDES}"];them
+    for f in ./source/_posts/slides/*.md; do
+        pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s ${PANDOC_SLIDES}
+    done
+else
+    for f in ./source/_posts/slides/*.md; do
+        pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s
+    done
 if [ $? -eq 0 ]; then
   echo "deploy to slide success"
 else
