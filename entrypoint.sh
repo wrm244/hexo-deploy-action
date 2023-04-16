@@ -42,6 +42,7 @@ pandoc ./source/_posts/slides/index.md -o ./public/slides.html -t revealjs -s
 
 
 echo ">>>deploying......"
+git config --global --add safe.directory /github/workspace
 cd ./public
 git push
 
