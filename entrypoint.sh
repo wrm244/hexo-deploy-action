@@ -38,13 +38,10 @@ apt-get install pandoc -y
 
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
-pandoc ./source/_posts/slides/index.md -o ./public/slides.html -t revealjs -s
+pandoc ./source/_posts/slides/index.md -o ./public/slides.html -t revealjs -s && echo "deploy slides sucessed"
 
 
 echo ">>>deploying......"
-git config --global --add safe.directory /github/workspace
-cd ./public
-git commit -m "slide"
-git push
+npx hexo d
 
 echo ">>> Deployment successful!"
