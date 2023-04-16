@@ -45,7 +45,7 @@ dpkg -i pandoc-3.1.2-1-amd64.deb
 SLIDES_DIR="./source/_posts/slides"
 PUBLIC_DIR="./public/slides"
 INDEX_FILE="./source/slide/index.md"
-ARG_FILE="$SLIDES_DIR/argument.txt"
+ARG_FILE="$SLIDES_DIR/argument.md"
 
 # 定义一个函数，用来转换 md 文件为 html 文件，并传递参数
 convert_md_to_html() {
