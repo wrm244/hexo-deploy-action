@@ -54,12 +54,14 @@ if [ ! -f ./source/slide/index.md ]; then
     touch ./source/slide/index.md
 fi
 
-# 遍历 ./public/slides 文件夹中的文件
-for f in ./public/slides/*.html; do
+# 对 ./public/slides 文件夹中的文件按照创建时间排序，并反转顺序
+files=$(ls -t ./public/slides/*.html | tac)
+# 遍历排序后的文件
+for f in $files; do
     # 获取文件名（不含扩展名）
     name=$(basename "$f" .html)
-    # 获取文件的创建时间（格式为 YYYY-MM-DD HH:MM:SS）
-    time=$(stat -c %w "$f")
+    # 获取文件的创建时间（格式为 YYYY-MM-DD HH:MM）
+    time=$(date -d "$(stat -c %w "$f")" "+%Y-%m-%d %H:%M")
     # 检查 index.md 文件中是否已经有了相同的文件名
     if ! grep -q "${name}" ./source/slide/index.md; then
         # 如果没有，就追加一行到 index.md 文件中
