@@ -41,33 +41,65 @@ dpkg -i pandoc-3.1.2-1-amd64.deb
 
 # use pandoc to slides
 
-mkdir -p ./public/slides
-for f in ./source/_posts/slides/*.md; do
-    # 从 argument.txt 文件中读取对应的参数
-    args=$(grep "$(basename "$f")" ./source/_posts/slides/argument.txt | grep -v "^#" | cut -d' ' -f2-)
-    # 调用 pandoc 命令并传递参数
-    pandoc "$f" -o "./public/slides/$(basename "$f" .md).html" -t revealjs -s $args
-done
+# 定义一些常量
+SLIDES_DIR="./source/_posts/slides"
+PUBLIC_DIR="./public/slides"
+INDEX_FILE="./source/slide/index.md"
+ARG_FILE="$SLIDES_DIR/argument.txt"
 
-# 如果 index.md 文件不存在，就创建一个空的
-if [ ! -f ./source/slide/index.md ]; then
-    touch ./source/slide/index.md
-fi
-
-# 对 ./public/slides 文件夹中的文件按照创建时间排序，并反转顺序
-files=$(ls -t ./public/slides/*.html | tac)
-# 遍历排序后的文件
-for f in $files; do
+# 定义一个函数，用来转换 md 文件为 html 文件，并传递参数
+convert_md_to_html() {
     # 获取文件名（不含扩展名）
-    name=$(basename "$f" .html)
+    local name=$(basename "$1" .md)
+    # 从 argument.txt 文件中读取对应的参数
+    local args=$(grep "$name" "$ARG_FILE" | grep -v "^#" | cut -d' ' -f2-)
+    # 调用 pandoc 命令并传递参数
+    pandoc "$1" -o "$PUBLIC_DIR/$name.html" -t revealjs -s $args
+}
+
+# 定义一个函数，用来写入 index.md 文件
+write_index_file() {
+    # 获取文件名（不含扩展名）
+    local name=$(basename "$1" .html)
     # 获取文件的创建时间（格式为 YYYY-MM-DD HH:MM）
-    time=$(date -d "$(stat -c %w "$f")" "+%Y-%m-%d %H:%M")
+    local time=$(date -d "$(stat -c %w "$1")" "+%Y-%m-%d %H:%M")
     # 检查 index.md 文件中是否已经有了相同的文件名
-    if ! grep -q "${name}" ./source/slide/index.md; then
+    if ! grep -q "$name" "$INDEX_FILE"; then
         # 如果没有，就追加一行到 index.md 文件中
-        echo "| [${name}](https://wrm244.github.io/slides/${name}.html) | ${time} |" >> ./source/slide/index.md
+        echo "| [$name](../slides/$name.html) | $time |" >> "$INDEX_FILE"
+    fi
+}
+
+# 创建目录和文件（如果不存在）
+mkdir -p "$PUBLIC_DIR"
+touch "$INDEX_FILE"
+touch "$ARG_FILE"
+
+# 遍历 md 文件，并转换为 html 文件
+for f in "$SLIDES_DIR"/*.md; do
+    # 检查文件是否存在
+    if [ -f "$f" ]; then
+        convert_md_to_html "$f"
+    else
+        echo "File $f does not exist."
+        exit 1
     fi
 done
+
+# 对 html 文件按照创建时间排序，并反转顺序
+files=$(ls -t "$PUBLIC_DIR"/*.html | tac)
+# 遍历排序后的文件，并写入 index.md 文件
+for f in $files; do
+    # 检查文件是否存在
+    if [ -f "$f" ]; then
+        write_index_file "$f"
+    else
+        echo "File $f does not exist."
+        exit 1
+    fi
+done
+
+echo "Done."
 
 echo ">>> Generate file again..."
 npx hexo g
