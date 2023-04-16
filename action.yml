@@ -28,6 +28,7 @@ runs:
     - ${{ inputs.user_name }}
     - ${{ inputs.user_email }}
     - ${{ inputs.deploy_key }}
+    - ${{ inputs.slides }}
 branding:
   icon: 'package'  
   color: 'blue'

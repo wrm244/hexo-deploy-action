@@ -33,6 +33,20 @@ npx hexo clean
 echo ">>> Generate file again..."
 npx hexo g
 
+echo ">>> deploy slides...."
+if [ -n "${INPUT_SLIDES}" ]; then
+    SLIDES_FLAG=${INPUT_SLIDES}
+else
+    SLIDES_FLAG="no"
+fi
+
+if ["${INPUT_SLIDES}" == "yes"];then
+    apt-get install pandoc -y
+    # Directs the action to the the Github workspace.
+    cd "${GITHUB_WORKSPACE}"
+    pandoc ./source/_posts/slides/index.md -o ./.deploy_git/slides.html -t revealjs -s
+fi
+
 echo ">>>deploying......"
 npx hexo d -g
 
