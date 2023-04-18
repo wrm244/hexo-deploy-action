@@ -106,6 +106,10 @@ echo "pandoc to slides Done."
 echo ">>> Generate file again..."
 npx hexo g
 
+# This script will replace unpkg.com with npm.onmicrosoft.cn in all html files under ./slides folder
+find ./public/slides -type f \( -iname "*.htm" -o -iname "*.html" \) -exec sed -i 's#unpkg\.com#npm.onmicrosoft.cn#g' '{}' +
+echo "replace unpkg.com with npm.onmicrosoft.cn Done!"
+
 if [ $? -eq 0 ]; then
   echo "deploy to slide success"
 else
